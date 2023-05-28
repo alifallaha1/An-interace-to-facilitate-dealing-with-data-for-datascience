@@ -1,0 +1,469 @@
+ScreenManager:
+    FirstWindow
+    SecondWindow
+    ThirdWindow
+    FourhtWindow
+    FifthWindow
+<Content>:
+    orientation:"vertical"
+    spacing:"12dp"
+    size_hint_y:None
+    height:"120dp"
+    MDTextField:
+        id:newvalfield
+        hint_text:"enter your new value "
+        pos_hint:{"center_x":.5,"center_y":.5}
+
+
+<FirstWindow>:
+    name:'filescreen'
+    pos:self.pos
+    size:self.size
+    #the first box
+    MDBoxLayout:
+        orientation:"horizontal"
+        size:root.width , root.height
+        #the left box
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(.5,1)
+            #the files box
+            MDBoxLayout:
+                orientation:"vertical"
+                size_hint:(1,.3)
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]file[/color]"
+                    font_size:"24sp"
+                    size_hint:(1,.15)
+                    pos_hint:{"x":.25}
+                    #the filescheckbox box
+                MDGridLayout:
+                    id:yourfile
+                    adaptive_height: True
+                    cols:1
+
+
+            MDBoxLayout:
+                orientation:"vertical"
+                size_hint:(1,.7)
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]file information[/color]"
+                    font_size:"24sp"
+                    size_hint:(1,.15)
+                    pos_hint:{"x":.25}
+                BoxLayout:
+                    size_hint:(1,.85)
+                    ScrollView:
+                        MDGridLayout:
+                            id:fileinfo
+                            adaptive_height: True
+                            font_size:"16sp"
+
+                            cols:1
+
+
+
+        #the uplod file box
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(.5,1)
+
+            MDBoxLayout:
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]Loding dataset[/color]"
+                    font_size:"50sp"
+                    pos_hint:{"x":.25,"y":.07}
+
+            Image_btn:
+                id:upload_btn
+                source:"img/uplode.png"
+                size_hint:None,None
+                size:200,200
+                pos_hint:{"right":0.5}
+                on_press: root.upload_menu()
+            MDBoxLayout:
+
+            Image_btn:
+                source:"img/arrow.png"
+                size_hint:None,None
+                size:48,48
+                pos_hint:{"right":1}
+                on_release: root.manager.current='preprocessing'
+
+
+<SecondWindow>:
+    name:"preprocessing"
+    pos:self.pos
+    size:self.size
+    MDBoxLayout:
+        orientation:"vertical"
+        size:root.width , root.height
+        ##the heading box####
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(1,.1)
+            MDLabel:
+                markup:True
+                text: "[color=#3f51b5]Data Preprocessing[/color]"
+                font_size:"30sp"
+
+                pos_hint:{"center_x":1,"center_y":1}
+        ##the change value box####
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(1,.45)
+            MDBoxLayout:
+                orientation:"horizontal"
+                size:root.width , root.height
+                #####select the col#####
+                MDBoxLayout:
+                    orientation:"vertical"
+                    size_hint:(.2,1)
+                    MDLabel:
+                        markup:True
+                        text: "[color=#3f51b5]Change the values[/color]"
+
+
+                    MDRoundFlatButton:
+                        text: "Choose your column"
+                        text_color: "blue"
+                        id:catmenu
+                        pos_hint:{"center_x":.5,"center_y":.5}
+                        on_release:root.cat_dropdown()
+                    MDBoxLayout:
+
+                #####select the value#####
+                MDBoxLayout:
+                    orientation:"vertical"
+                    size_hint:(.5,1)
+                    ScrollView:
+                        id:catbox
+
+                #####the new value#####
+                MDBoxLayout:
+                    orientation:"vertical"
+                    size_hint:(.3,1)
+                    MDLabel:
+                        markup:True
+                        text: "[color=#3f51b5]Enter your new value[/color]"
+                    MDTextField:
+                        id:theNewV
+                    MDRoundFlatButton:
+                        text:"Change the val"
+                        text_color: "blue"
+                        on_release:root.changTheVal()
+                    MDBoxLayout:
+
+
+
+        ##the delete value box####
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(1,.45)
+            MDBoxLayout:
+                orientation:"horizontal"
+                size:root.width , root.height
+                  #####the title#####
+                MDBoxLayout:
+                    orientation:"vertical"
+                    size_hint:(.2,1)
+                    MDLabel:
+                        markup:True
+                        text: "[color=#3f51b5]Column with Missing values[/color]"
+                ####the missing col####
+                MDBoxLayout:
+                    orientation:"vertical"
+                    size_hint:(.5,1)
+                    ScrollView:
+                        id:missingbox
+
+
+
+                ####the missing col####
+                MDBoxLayout:
+                    orientation:"vertical"
+                    size_hint:(.3,1)
+                    MDLabel:
+                        markup:True
+                        text: "[color=#3f51b5]Fill the missing Values[/color]"
+                    MDTextField:
+                        id:theNewVal
+                    MDRoundFlatButton:
+                        text:"Submit"
+                        text_color: "blue"
+                        on_release:root.changTheMissing()
+                        size_hint_x:None
+                        width:200
+
+
+                    MDRoundFlatButton:
+                        text:"Drop rows"
+                        text_color: "blue"
+                        on_release:root.dropRow()
+                        size_hint_x:None
+                        width:200
+                    MDRoundFlatButton:
+                        text:"Drop column"
+                        text_color: "blue"
+                        on_release:root.dropcol()
+                        size_hint_x:None
+                        width:200
+                    Image_btn:
+                        source:"img/arrow.png"
+                        size_hint:None,None
+                        size:48,48
+                        pos_hint:{"right":1}
+                        on_release: root.manager.current='exploratory'
+
+
+
+
+
+
+
+<ThirdWindow>:
+    name:"exploratory"
+    pos:self.pos
+    size:self.size
+    #the first box
+    MDBoxLayout:
+        orientation:"horizontal"
+        size:root.width , root.height
+        #the left box
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(.3,1)
+            #the col box
+            MDBoxLayout:
+                orientation:"vertical"
+                size_hint:(1,1)
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]choose your column[/color]"
+                    font_size:"24sp"
+                    size_hint:(1,.15)
+                    pos_hint:{"x":.25}
+
+                BoxLayout:
+                    size_hint:(1,.85)
+                    ScrollView:
+                        id:expcol
+
+
+
+
+
+
+
+        #the plot file box
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(.7,1)
+
+            MDBoxLayout:
+                size_hint:(1,.15)
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]Exploratory Data [/color]"
+                    font_size:"50sp"
+                    pos_hint:{"x":.25,"y":.07}
+
+            BoxLayout:
+                id:expfig
+                size_hint:(1,.7)
+            MDBoxLayout:
+                size_hint:(1,.7)
+                MDFloatLayout:
+                    Image_btn:
+                        source:"img/arrow.png"
+                        size_hint:None,None
+                        size:48,48
+                        pos_hint:{"right":1}
+                        on_release: root.manager.current='corelation'
+                    Image_btn:
+                        source:"img/save.png"
+                        size_hint:None,None
+                        size:48,48
+                        pos_hint:{"x":0}
+                        on_release: root.savefig()
+
+
+<FourhtWindow>:
+    name:"corelation"
+    pos:self.pos
+    size:self.size
+    #the first box
+    MDBoxLayout:
+        orientation:"horizontal"
+        size:root.width , root.height
+        #the left box
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(.3,1)
+            #the col box
+            MDBoxLayout:
+                orientation:"vertical"
+                ##the col taget checkbox
+                MDBoxLayout:
+                    orientation:"vertical"
+                    MDLabel:
+                        markup:True
+                        text: "[color=#3f51b5]choose your target[/color]"
+                        font_size:"24sp"
+                        size_hint:(1,.15)
+                        pos_hint:{"top":1}
+                    MDBoxLayout:
+                        ScrollView:
+                            id:tarCorr
+                ##the second col checkbox
+                MDBoxLayout:
+                    orientation:"vertical"
+                    MDLabel:
+                        markup:True
+                        text: "[color=#3f51b5]choose your column[/color]"
+                        font_size:"24sp"
+                        size_hint:(1,.15)
+                        pos_hint:{"top":1}
+                    MDBoxLayout:
+                        ScrollView:
+                            id:colCorr
+
+
+
+
+
+
+
+
+        #the plot file box
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(.7,1)
+
+            MDBoxLayout:
+                size_hint:(1,.15)
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]Correlation [/color]"
+                    font_size:"50sp"
+                    pos_hint:{"x":.25,"y":.07}
+            BoxLayout:
+            BoxLayout:
+                id:corrFig
+                size_hint:(1,.7)
+            MDBoxLayout:
+                size_hint:(1,.7)
+                MDFloatLayout:
+                    Image_btn:
+                        source:"img/arrow.png"
+                        size_hint:None,None
+                        size:48,48
+                        pos_hint:{"right":1}
+                        on_release: root.manager.current='model'
+                    Image_btn:
+                        source:"img/save.png"
+                        size_hint:None,None
+                        size:48,48
+                        pos_hint:{"x":0}
+                        on_release: root.savefig()
+
+
+
+<FifthWindow>:
+    name:"model"
+    pos:self.pos
+    size:self.size
+    MDBoxLayout:
+        orientation:"horizontal"
+        size:root.width , root.height
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(.3,1)
+            #the col box
+            MDBoxLayout:
+                orientation:"vertical"
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]drop column[/color]"
+                    font_size:"24sp"
+                    size_hint:(1,.15)
+                    pos_hint:{"x":.25}
+                MDBoxLayout:
+                    size_hint:(1,.70)
+                    ScrollView:
+                        id:dropCol
+                MDRoundFlatButton:
+                    text_color: "blue"
+                    text:"Submit"
+                    pos_hint:{"x":.25,"y":.1}
+                    on_release:root.dropColumnsBtn()
+                    size_hint_x:None
+                    width:200
+        #the left box
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(.3,1)
+            MDBoxLayout:
+                orientation:"vertical"
+
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]choose your target [/color]"
+                    font_size:"25sp"
+                    pos_hint:{"x":0,"top":1}
+                MDTextField:
+                    id:theTargetInput
+                MDRoundFlatButton:
+                    text_color: "blue"
+                    text:"Submit"
+                    on_release:root.selectTarget()
+                    size_hint_x:None
+                    width:200
+
+            MDBoxLayout:
+                orientation:"vertical"
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]choose your test amount [/color]"
+                    font_size:"25sp"
+                    pos_hint:{"x":0,"top":1}
+                MDTextField:
+                    id:theTestAmountInput
+                MDRoundFlatButton:
+                    text_color: "blue"
+                    text:"Submit"
+                    size_hint_x:None
+                    width:200
+                    on_release:root.testAmount()
+            MDBoxLayout:
+                orientation:"vertical"
+                id:theModelBox1
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]choose your model [/color]"
+                    font_size:"25sp"
+                    pos_hint:{"x":0,"top":1}
+
+
+
+        MDBoxLayout:
+            orientation:"vertical"
+            size_hint:(.3,1)
+            MDBoxLayout:
+                orientation:"vertical"
+                MDLabel:
+                    markup:True
+                    text: "[color=#3f51b5]your models[/color]"
+                    font_size:"24sp"
+                    size_hint:(1,.15)
+                    pos_hint:{"x":.25}
+                MDBoxLayout:
+                    orientation:"vertical"
+                    id:theModelBox
+
+
+
+
